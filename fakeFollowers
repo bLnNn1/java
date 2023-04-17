@@ -1,0 +1,190 @@
+import java.time.Duration;
+import java.util.Scanner;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Main {
+	
+	static String browser;
+	static WebDriver driver;
+	static String mrInstaName;
+	static String mrInstaPass;
+	static String instaName;
+	static String instaPass;
+	
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		
+		mrInstaName = "amandasophia313@gmail.com";
+		mrInstaPass = "Amandy1!";
+		instaName = "@amandasophia313";
+		instaPass = "monitor123";
+		
+		in.close();
+		
+		setBrowserConfig();
+		
+		instaFollowers();
+	}
+	
+	public static void setBrowserConfig() {
+		
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Andrei\\Downloads\\chromedriver_win32\\chromedriver.exe");		
+		driver = new ChromeDriver(options);
+	}
+	
+	
+	public static void instaFollowers() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+		//loginSite
+		driver.get("https://app.mrinsta.com/login");
+		stay(3);
+		driver.findElement(By.xpath("//input[@name='username']")).sendKeys(mrInstaName);
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(mrInstaPass);
+		stay(1);
+		driver.findElement(By.xpath("//button[@type='primary']")).click();
+		stay(4);
+		
+		//check follow10profiles button
+		if(driver.findElements(By.xpath("//h6[normalize-space()='Activated']")).size() > 0) {
+			System.out.println(driver.findElement(By.xpath("//button[@type='primary']//p[1]")).getText());
+			System.out.println("Let's redeem coins.");
+				driver.manage().window().maximize();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='My Account']")));
+				driver.findElement(By.xpath("//span[normalize-space()='My Account']")).click();
+				stay(5);
+				driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div/div[2]/div[1]/div/div/div/a[3]")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='demo-simple-select']")));
+				// //*[@id=\"demo-simple-select\"]
+				//redeem coins
+				driver.findElement(By.xpath("//div[@id='demo-simple-select']")).click();
+				stay(2);
+				driver.findElement(By.cssSelector("li[role='option'][tabindex='0']")).click();
+				stay(2);
+				//driver.findElement(By.xpath("//input[@id='mui-1']")).sendKeys("https://www.instagram.com/amandasophia313/");
+				driver.findElement(By.cssSelector("body")).sendKeys(Keys.TAB + "https://www.instagram.com/amandasophia313/");
+				driver.findElement(By.xpath("//input[@placeholder='0']")).sendKeys("10");
+				stay(2);
+				driver.findElement(By.xpath("//span[normalize-space()='Submit Order']")).click();
+				stay(90);
+				System.out.println("the end of session.");
+		}
+		else {
+			
+		//follow10profiles
+		driver.findElement(By.xpath("//div[@class='MuiBox-root css-1qm1lh']//button[@type='primary']")).click();
+		stay(5);
+		
+		for (int i = 0; i < 10; i++) {
+		
+		//followBtn
+		driver.findElement(By.xpath("//span[normalize-space()='Follow Profile']")).click();
+		stay(10);
+		
+		String parent=driver.getWindowHandle();
+
+		Set<String>s=driver.getWindowHandles();
+		
+		java.util.Iterator<String> I1= s.iterator();
+		while(I1.hasNext()) {
+			String child_window=I1.next();
+			
+			if(!parent.equals(child_window)) {
+				driver.switchTo().window(child_window);
+			}
+		}
+		
+		//check if insta page isn't available
+		if(driver.findElements(By.xpath("//span[@class='x1lliihq x1plvlek xryxfnj x1n2onr6 x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x1i0vuye x133cpev x1s688f x5n08af x2b8uid x4zkp8e x41vudc x10wh9bi x1wdrske x8viiok x18hxmgj']")).size() > 0) {
+			stay(5);
+			//close insta window
+			
+			driver.switchTo().window(parent);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Confirm']")));
+			
+			//confirm button
+			driver.findElement(By.xpath("//span[normalize-space()='Confirm']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Follow Profile']")));
+			
+			driver.findElement(By.xpath("//span[normalize-space()='Follow Profile']")).click();
+			stay(10);
+		}
+		
+		//loginInsta and cookie check
+		if (driver.findElements(By.xpath("//button[normalize-space()='Only allow essential cookies']")).size() > 0) {
+		driver.findElement(By.xpath("//button[normalize-space()='Only allow essential cookies']")).click();
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Log In')]")));
+		driver.findElement(By.xpath("//div[contains(text(),'Log In')]")).click();
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name,'username')]")));
+		driver.findElement(By.xpath("//input[contains(@name,'username')]")).sendKeys(instaName);
+		driver.findElement(By.xpath("//input[contains(@name,'password')]")).sendKeys(instaPass);
+		driver.findElement(By.xpath("//button[contains(@type,'submit')]")).click();
+		stay(7);
+		
+		//button wich appears sometimes
+		if(driver.findElements(By.xpath("//div[@role='button']")).size() > 0) {
+		driver.findElement(By.xpath("//div[@role='button']")).click();
+		}
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Follow')]")));
+		}
+		
+		//followInsta
+		driver.findElement(By.xpath("//div[contains(text(),'Follow')]")).click();
+		stay(2);
+		
+		
+		driver.switchTo().window(parent);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Confirm']")));
+		
+		//confirm button
+		driver.findElement(By.xpath("//span[normalize-space()='Confirm']")).click();
+		stay(8);
+		
+		if (driver.findElements(By.xpath("//span[normalize-space()='Validate']")).size() > 0) {
+			i = 9;
+		}
+		}
+		
+		//validate followers
+		stay(6);
+		driver.findElement(By.xpath("//span[normalize-space()='Validate']")).click();
+		
+		//redeem coins
+		driver.manage().window().maximize();
+		stay(7);
+		
+		driver.findElement(By.xpath("//div[@id='demo-simple-select']")).click();
+		stay(2);
+		driver.findElement(By.cssSelector("li[role='option'][tabindex='0']")).click();
+		stay(2);
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.TAB + "https://www.instagram.com/amandasophia313/");
+		stay(1);
+		driver.findElement(By.xpath("//input[@placeholder='0']")).sendKeys("10");
+		stay(2);
+		driver.findElement(By.xpath("//span[normalize-space()='Submit Order']")).click();
+		stay(90);
+		System.out.println("done.");
+		}
+		
+		}
+		
+	public static void stay(int s) {
+		try {
+			Thread.sleep(s*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+  }
