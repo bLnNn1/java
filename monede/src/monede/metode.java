@@ -9,11 +9,7 @@ public class metode {
 		
 		double EUR, USD, GBP, MDL, CAD;
 		
-		EUR = 4.93;
-		USD = 5.08;
-		GBP = 5.67;
-		MDL = 0.26;
-		CAD = 3.66;
+
 		
 		System.out.println("Ce tip de moneda doriti sa schimbati?\n1. EUR\n2. USD\n3. GBP\n4. MDL\n5. CAD");
 		int moneda = in.nextInt();
