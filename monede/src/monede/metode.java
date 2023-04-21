@@ -8,7 +8,7 @@ public class metode {
 		Scanner tip = new Scanner(System.in);
 		
 		double EUR, USD, GBP, MDL, CAD;
-		salutare, tre sa stergi asta!
+		
 		EUR = 4.93;
 		USD = 5.08;
 		GBP = 5.67;
