@@ -1,5 +1,6 @@
 package todolist;
-
+// To Do List console application.
+// .exe file soon
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
