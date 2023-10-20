@@ -1,1 +1,6 @@
 Un ToDoList ce functioneaza doar in consola.
+Odata cu pornirea aplicatiei (Click Run in Eclipse IDE), in consola vor aparea 3 optiuni:
+1. Adauga
+2. Verifica
+3. Sterge
+Cu ajutorul acestor comenzi putem modifica lista de task-uri.
