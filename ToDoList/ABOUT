@@ -1,0 +1,9 @@
+La pornirea aplicatiei ToDoList se va deschide un fisier .exe unde putem adauga, sterge si salva task-urile.
+Totul functional, mai putin butonul 'Save Task'.
+
+Apasam butonul 'Add Task', se va adauga o noua linie in coloana. In linia respectiva putem scrie titlul task-ului.
+La apasarea butonului 'Done' culoarea liniei va fi schimbata in verde, sugerand faptul ca task-ul este finalizat.
+
+La apasarea butonului 'Clear Task', toate task-urile finalizate (cele de culoare verde) vor fi sterse, ramanand doar cele nefinalizate (cele de culoare rosie).
+
+#soon Butonul 'Save Task' are rolul de a salva task-urile dupa inchiderea aplicatiei. #soon
